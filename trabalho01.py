@@ -7,17 +7,29 @@ class DynamicIntArray:
         self.data = [0] * self.capacity # Cria Array estático interno (só de inteiros)
 
     def is_empty(self):
-        #TODO: Retornar True se a lista estiver vazia, False caso contrário
+        # Retorna True se a lista estiver vazia, False caso contrário
+        return self.size == 0
 
     def get(self, index):
-        #TODO: Retornar o valor do elemento no índice fornecido. Lançar IndexError se o índice for inválido.
+        # Retorna o valor do elemento no índice fornecido. Lança IndexError se o índice for inválido.
+        if index < 0 or index >= self.size:
+            raise IndexError("IndexError: Índice fora dos limites.")
+        return self.data[index]
 
     def set(self, index, value):
-        #TODO: Definir o valor do elemento no índice fornecido. Lançar IndexError se o índice for inválido.
+        # Define o valor do elemento no índice fornecido. Lança IndexError se o índice for inválido.
+        if index < 0 or index >= self.size:
+            raise IndexError("IndexError: Índice fora dos limites.")
+        self.data[index] = value
 
     def append(self, value):
-        #TODO: Adicionar um elemento ao final da lista. Redimensionar o array interno se necessário.
+        # Adiciona um elemento ao final da lista. 
+        if self.size == self.capacity:
+            self._resize(self.capacity * 2)
 
+        self.data[self.size] = value
+        self.size += 1
+    
     def _resize(self, new_capacity):
         if new_capacity > self.capacity:
             print(f"⏫ Redimensionando de {self.capacity} para {new_capacity}")
